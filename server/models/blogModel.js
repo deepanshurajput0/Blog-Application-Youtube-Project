@@ -5,6 +5,16 @@ const blogSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    image:{
+       public_id:{
+        type:String,
+        required:true
+       },
+       url:{
+        type:String,
+        required:true
+       },
+    },
     content:{
         type:String,
         required:true,
@@ -14,8 +24,8 @@ const blogSchema = new mongoose.Schema({
         ref:'User'
     },
     category:{
-        type:String,
-        required:true,
+        type:[mongoose.Schema.Types.ObjectId],
+        ref:'Category'
     },
     publishedAt:{
         type:Date,
