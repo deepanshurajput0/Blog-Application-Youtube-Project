@@ -24,8 +24,8 @@ const blogSchema = new mongoose.Schema({
         ref:'User'
     },
     category:{
-        type:[mongoose.Schema.Types.ObjectId],
-        ref:'Category'
+       type:String,
+       required:true
     },
     publishedAt:{
         type:Date,
