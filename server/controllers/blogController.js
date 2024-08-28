@@ -47,9 +47,10 @@ export const getAllBlogs=async(req,res)=>{
 export const updateBlog = async (req, res) => {
   try {
     const { id } = req.params;
+    const userId = req.user._id 
     const { title, content, category } = req.body;
     const file = req?.file;
-    const myBlog = await blogModel.findById(id);
+    const myBlog = await blogModel.findOne({_id:id, author:userId});
     if (!myBlog) {
       return res.status(404).json({ message: 'Blog not found' });
     }
@@ -73,7 +74,31 @@ export const updateBlog = async (req, res) => {
     await myBlog.save();
 
     res.status(200).json({
-      message: 'Post Updated Successfully',
+      message: 'Post Updated Successfully'
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Internal Server Error"
+    });
+  }
+};
+
+export const deleteBlog = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user._id 
+    const myBlog = await blogModel.findOne({_id:id, author:userId});
+    if (!myBlog) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    await cloudinary.v2.uploader.destroy(myBlog.image.public_id);
+    
+    await myBlog.deleteOne()
+
+    res.status(200).json({
+      message: 'Post Deleted Successfully'
     });
   } catch (error) {
     console.log(error);
