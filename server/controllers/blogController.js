@@ -32,14 +32,16 @@ export const createBlog=async(req,res)=>{
 
 export const getAllBlogs=async(req,res)=>{
   try {
-    const { category, search='' } = req.query
+    const { category, search='', page=1 } = req.query
+    const limit = 6
     const query ={
       title:{$regex:search, $options:'i'}
     }
+    const skip =(page -1 ) * limit
     if(category){
       query.category = category;
     }
-    const blogs = await blogModel.find(query)
+    const blogs = await blogModel.find(query).skip(skip).limit(limit)
     res.status(200).json(blogs)
   } catch (error) {
     console.log(error)
