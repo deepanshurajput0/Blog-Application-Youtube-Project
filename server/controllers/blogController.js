@@ -32,7 +32,14 @@ export const createBlog=async(req,res)=>{
 
 export const getAllBlogs=async(req,res)=>{
   try {
-    const blogs = await blogModel.find({})
+    const { category, search='' } = req.query
+    const query ={
+      title:{$regex:search, $options:'i'}
+    }
+    if(category){
+      query.category = category;
+    }
+    const blogs = await blogModel.find(query)
     res.status(200).json(blogs)
   } catch (error) {
     console.log(error)
