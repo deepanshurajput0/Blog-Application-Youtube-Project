@@ -4,8 +4,15 @@ import Navbar from './components/Navbar'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import BlogDetails from './pages/BlogDetails'
+import useLoadUser from './components/LoadUser'
 import { Toaster } from 'react-hot-toast'
+import { useEffect } from 'react'
 const App = () => {
+  
+  const loadUser = useLoadUser()
+  useEffect(()=>{
+    loadUser()
+  },[]) 
   return (
   <>
   <Router>

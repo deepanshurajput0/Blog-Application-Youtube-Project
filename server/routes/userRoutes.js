@@ -7,7 +7,7 @@ router.post('/register',regsiter)
 
 router.post('/login',  login)
 
-router.get('/myprofile',authMiddleware,getMyProfile)
+router.get('/me',authMiddleware,getMyProfile)
 
 router.get('/logout' , logout)
 

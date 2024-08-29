@@ -34,8 +34,8 @@ export const regsiter=async(req,res)=>{
 
 export const login = async(req,res)=>{
     try {
-     const { username ,password } = req.body
-     if(!username || !password){
+     const { email ,password } = req.body
+     if(!email || !password){
        return res.status(400).json({
          message:'All fields are required'
        })  
@@ -43,7 +43,7 @@ export const login = async(req,res)=>{
      const user = await userModel.findOne({email})
      if(!user){
          return res.status(401).json({
-             message:'Invalid username & password'
+             message:'Invalid email & password'
            })  
           }
      const comparePassword = await bcrypt.compare(password,user.password)
@@ -52,7 +52,7 @@ export const login = async(req,res)=>{
         message:'Invalid email & password'
       })  
      }
-    sendToken(res,user,`Welcome back ${user.name}`,201)
+    sendToken(res,user,`Welcome back ${user.username}`,201)
     } catch (error) {
      console.log(error)
      res.status(500).json({
