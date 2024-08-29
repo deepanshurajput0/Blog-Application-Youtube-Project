@@ -7,8 +7,12 @@ import BlogDetails from './pages/BlogDetails'
 import useLoadUser from './components/LoadUser'
 import { Toaster } from 'react-hot-toast'
 import ProtectedRoute from './components/ProtectedRoute'
-import Dashboard from './components/Dashboard'
+import DashboardLayout from './components/Dashboard'
 import { useEffect } from 'react'
+import AllBlogs from './components/AllBlogs'
+import CreateBlogs from './components/CreateBlogs'
+import CreateCategory from './components/CreateCategory'
+import Analytics from './components/Analytics'
 const App = () => {
 
   const loadUser = useLoadUser()
@@ -32,7 +36,12 @@ const App = () => {
         </ProtectedRoute>
       } />
       <Route path='/blog/:id' element={<BlogDetails/>} />
-      <Route path='/admin/dashboard' element={<Dashboard/>} />
+      <Route path="/dashboard" element={<DashboardLayout />}> 
+      <Route path="blogs" element={<AllBlogs/>} />
+          <Route path="create-blog" element={<CreateBlogs/>} />
+          <Route path="create-category" element={<CreateCategory/>} />
+          <Route path="analytics" element={<Analytics/>} />
+      </Route>
     </Routes>
     <Toaster/>
   </Router>
