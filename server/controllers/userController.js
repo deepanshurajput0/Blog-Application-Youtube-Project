@@ -65,7 +65,7 @@ export const login = async(req,res)=>{
 
 export const getMyProfile=async(req,res)=>{
     try {
-     const currentUser = await userModel.findById(req.user._id)
+     const currentUser = await userModel.findById(req?.user?._id)
      if(!currentUser){
         return res.status(401).json({
             message:"Invalid User"
@@ -88,8 +88,7 @@ export const logout=async(req,res)=>{
         {   success:true,
             message:"Logout Successfully"
          }
-     )
-     res.status(200).json(currentUser)       
+     )   
     } catch (error) {
         console.log(error)
         res.status(500).json({
