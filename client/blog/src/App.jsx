@@ -7,6 +7,7 @@ import BlogDetails from './pages/BlogDetails'
 import useLoadUser from './components/LoadUser'
 import { Toaster } from 'react-hot-toast'
 import ProtectedRoute from './components/ProtectedRoute'
+import Dashboard from './components/Dashboard'
 import { useEffect } from 'react'
 const App = () => {
 
@@ -31,6 +32,7 @@ const App = () => {
         </ProtectedRoute>
       } />
       <Route path='/blog/:id' element={<BlogDetails/>} />
+      <Route path='/admin/dashboard' element={<Dashboard/>} />
     </Routes>
     <Toaster/>
   </Router>
