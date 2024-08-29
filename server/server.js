@@ -5,6 +5,7 @@ import blogRoutes from './routes/blogRoutes.js'
 import categoryRoutes from './routes/categoryRoutes.js'
 import cookieParser from 'cookie-parser'
 import cloudinary from 'cloudinary'
+import cors from 'cors'
 import { connectDB } from './config/db.js'
 const app = express()
 
@@ -19,6 +20,8 @@ cloudinary.v2.config({
 app.use(express.json())
 
 app.use(cookieParser())
+
+app.use(cors())
 
 app.use('/api/v1',userRoutes)
 app.use('/api/v1',blogRoutes)

@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import BlogDetails from './pages/BlogDetails'
+import { Toaster } from 'react-hot-toast'
 const App = () => {
   return (
   <>
@@ -15,6 +16,7 @@ const App = () => {
       <Route path='/login' element={<Login/>} />
       <Route path='/blog/:id' element={<BlogDetails/>} />
     </Routes>
+    <Toaster/>
   </Router>
   </>
   )
