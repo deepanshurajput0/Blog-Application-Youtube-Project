@@ -6,9 +6,10 @@ import Login from './pages/Login'
 import BlogDetails from './pages/BlogDetails'
 import useLoadUser from './components/LoadUser'
 import { Toaster } from 'react-hot-toast'
+import ProtectedRoute from './components/ProtectedRoute'
 import { useEffect } from 'react'
 const App = () => {
-  
+
   const loadUser = useLoadUser()
   useEffect(()=>{
     loadUser()
@@ -19,8 +20,16 @@ const App = () => {
     <Navbar/>
     <Routes>
       <Route path='/' element={<Home/>} />
-      <Route path='/signup' element={<Signup/>} />
-      <Route path='/login' element={<Login/>} />
+      <Route path='/signup' element={
+        <ProtectedRoute>
+          <Signup/>
+        </ProtectedRoute>
+      } />
+      <Route path='/login' element={
+        <ProtectedRoute>
+          <Login/>
+        </ProtectedRoute>
+      } />
       <Route path='/blog/:id' element={<BlogDetails/>} />
     </Routes>
     <Toaster/>

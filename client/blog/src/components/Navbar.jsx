@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import { IoMenu } from "react-icons/io5";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 const Navbar = () => {
     const [nav, setNav] = useState(true)
+    const { user } = useSelector((state)=>state.user)
   return (
     <nav className=" font-poppins fixed top-0 left-0 w-full z-50 bg-white/3 backdrop-blur-lg border-b border-neutral-700/80 shadow-lg  h-16 ">
     <div className=" flex justify-between mx-5 mt-5 " >
@@ -32,11 +34,17 @@ const Navbar = () => {
                 <Link>Contact Us</Link>
             </li>
             <li>
-             <Link to={'/login'} >
-             <button className=" bg-white text-black h-10 w-32 rounded-3xl font-semibold" >
-                    Login 
-                </button>
-             </Link>
+            {
+                      user ? <Link to={'/logout'} >
+                      <button className="bg-white text-black h-10 w-32 rounded-3xl font-semibold transition-transform duration-300 transform hover:scale-105">
+                 Logout
+               </button>
+                      </Link>  :      <Link to={'/login'} >
+                      <button className="bg-white text-black h-10 w-32 rounded-3xl font-semibold transition-transform duration-300 transform hover:scale-105">
+                 Login
+               </button>
+                      </Link>
+            }
             </li>
         </ul>
     </div>  : null
@@ -54,11 +62,17 @@ const Navbar = () => {
                 <Link>Contact Us</Link>
             </li>
             <li>
-       <Link to={'/login'} >
-       <button className="bg-white text-black h-10 w-32 rounded-3xl font-semibold transition-transform duration-300 transform hover:scale-105">
-  Login
-</button>
-       </Link>
+        {
+            user ? <Link to={'/logout'} >
+            <button className="bg-white text-black h-10 w-32 rounded-3xl font-semibold transition-transform duration-300 transform hover:scale-105">
+       Logout
+     </button>
+            </Link>  :      <Link to={'/login'} >
+            <button className="bg-white text-black h-10 w-32 rounded-3xl font-semibold transition-transform duration-300 transform hover:scale-105">
+       Login
+     </button>
+            </Link>
+        }
 
             </li>
         </ul>
