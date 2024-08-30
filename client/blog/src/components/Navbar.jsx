@@ -106,7 +106,7 @@ const Navbar = () => {
            
             <li>
                 {
-                    user?.role === 'admin' ? <Link to={'/dashboard'} > Dashboard </Link> : null
+                  user && user.role === 'admin' && <Link to="/dashboard">Dashboard</Link>
                 }
             </li>
         </ul>

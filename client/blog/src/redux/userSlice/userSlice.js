@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     user:null,
     loading:false,
+    isAuthenticated: false,
     error:null,
     message:null
 }
@@ -17,11 +18,13 @@ const userSlice = createSlice({
         },
         registerSuccess:(state,action)=>{
             state.loading = false
-            state.user = action.payload
+            state.isAuthenticated = true,
+            state.user = action.payload.user
             state.message = action.payload.message
         },
         registerFail:(state,action)=>{
           state.loading = false
+          state.isAuthenticated = false;
           state.error = action.payload.message
         },
         loginStart: (state) => {
@@ -29,11 +32,13 @@ const userSlice = createSlice({
         },
         loginSuccess: (state, action) => {
             state.loading = false;
-            state.user = action.payload;
+            state.isAuthenticated = true;
+            state.user = action.payload.user;
             state.message = action.payload.message;
         },
         loginFail: (state, action) => {
             state.loading = false;
+            state.isAuthenticated = false;
             state.error = action.payload.message;
         },
         loadUserStart:(state)=>{
@@ -41,10 +46,12 @@ const userSlice = createSlice({
          },
          loadUserSuccess:(state,action)=>{
             state.loading = false
+            state.isAuthenticated = true;
             state.user = action.payload
          },
          loadUserFail:(state,action)=>{
             state.loading = false
+            state.isAuthenticated = false;
             state.error = action.payload.message
          },
          logoutStart:(state)=>{
@@ -52,11 +59,13 @@ const userSlice = createSlice({
            },
            logoutSuccess:(state,action)=>{
             state.loading = false
+            state.isAuthenticated = false;
             state.user = null
             state.message = action.payload.message;
            },
            logoutFail:(state,action)=>{
             state.loading = false
+            state.isAuthenticated = false;
             state.error = action.payload.message
            }
     }
