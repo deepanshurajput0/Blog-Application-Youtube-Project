@@ -55,6 +55,25 @@ const CreateCategory = () => {
         toast.error(error.message);
       }
    }
+
+   const handleDelete=async(id)=>{
+     try { 
+      const res = await fetch(`/api/v1/remove/category/${id}`,{
+        method:'DELETE'
+      });
+
+      const data = await res.json()
+      if(res.ok){
+        dispatch(getCategorySuccess(categories.filter(category=>category._id !== id)))
+        toast.success(data.message)
+      }else{
+        toast.error(data.message)
+      }
+      
+     } catch (error) {
+      toast.error(error.message);
+     }
+   }
    useEffect(()=>{
     getAllCategories()
    },[])
@@ -105,7 +124,7 @@ const CreateCategory = () => {
         <tr>
           <th>{i}</th>
           <td>{item?.category}</td>
-          <td className=" ml-10" >
+          <td onClick={()=>handleDelete(item._id)} className=" cursor-pointer ml-10" >
             <RiDeleteBin5Line size={20} />
           </td>
         </tr>
