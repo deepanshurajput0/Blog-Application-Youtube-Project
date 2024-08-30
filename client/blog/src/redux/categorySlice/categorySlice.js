@@ -23,10 +23,23 @@ const categorySlice = createSlice({
           state.loading = false
           state.error = action.payload.message
         },
+        getCategoryStart:(state)=>{
+          state.loading = true
+
+        },
+        getCategorySuccess:(state,action)=>{
+          state.loading = false
+          state.categories = action.payload
+          state.message = action.payload.message
+        },
+        getCategoryFail:(state,action)=>{
+          state.loading = false
+          state.error = action.payload.message
+        },
     }
 })
 
-export const { createCategoryFail, createCategoryStart, createCategorySuccess } = categorySlice.actions
+export const { createCategoryFail, createCategoryStart, createCategorySuccess, getCategoryFail, getCategorySuccess, getCategoryStart } = categorySlice.actions
 
 export default categorySlice.reducer
 

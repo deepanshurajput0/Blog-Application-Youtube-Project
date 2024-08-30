@@ -5,9 +5,9 @@ const router = express()
 
 router.post('/create/category',authMiddleware,createCategory)
 
-router.post('/get/categories',authMiddleware,getAllCategories)
+router.get('/get/categories',authMiddleware,getAllCategories)
 
-router.post('/remove/category/:id',authMiddleware, deleteCategory)
+router.delete('/remove/category/:id',authMiddleware, deleteCategory)
 
 
 export default router
