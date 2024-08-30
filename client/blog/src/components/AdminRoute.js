@@ -1,20 +1,14 @@
-import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-const AdminRoute = ({ children }) => {
+const AdminRoute = ({ element }) => {
   const { user } = useSelector((state) => state.user);
 
-  const navigate = useNavigate();
+  if (user?.role !== 'admin') {
+    return <Navigate to="/" />;
+  }
 
-  useEffect(() => {
-    if (user?.role !== 'admin') {
-      navigate('/');
-    }
-  }, [user, navigate]);
-
-  return user?.role== 'admin' ? children : null;
+  return element;
 };
 
 export default AdminRoute;
-
