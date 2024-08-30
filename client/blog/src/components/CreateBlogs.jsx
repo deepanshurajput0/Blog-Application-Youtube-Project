@@ -60,12 +60,12 @@ const CreateBlogs = () => {
   return (
     <div>
       <div>
-        <h1 className=" text-center text-4xl font-poppins font-bold" >Create Your Blogs </h1>
+        <h1 className=" text-center text-4xl font-poppins font-bold mt-20" >Create Your Blogs </h1>
       </div>
 
-      <div className="hero">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+      <div className="hero z-[-10]">
+        <div>
+          <div className="">
             <form onSubmit={submitHandler} className="card-body">
               <div className="form-control">
                 <label className="label">

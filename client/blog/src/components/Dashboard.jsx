@@ -11,15 +11,17 @@ const DashboardLayout = () => {
       {/* Menu Icon */}
       <div
         onClick={() => setToggle(!toggle)}
-        className="bg-white inline-block rounded-full h-[50px] w-[50px] p-2 ml-10 cursor-pointer"
+        className="bg-white inline-block absolute left-6 rounded-full h-[50px] w-[50px] p-2  cursor-pointer"
       >
         <BiMenuAltRight color="black" size={30} />
       </div>
 
       {/* Sidebar */}
       {toggle && (
-        <div className="h-screen absolute top-14 bg-[#0C090A] text-white w-64 px-4 py-8">
-          <h2 className="text-2xl font-semibold mb-6">Dashboard</h2>
+        <div className=" h-screen absolute top-14 bg-[#0C090A] text-white w-64 px-4 py-8">
+          <h2 className="text-2xl cursor-pointer font-semibold mb-6">
+            <Link to={'/dashboard'} >Dashboard</Link>
+          </h2>
           <ul className="space-y-4">
             <li>
               <Link
