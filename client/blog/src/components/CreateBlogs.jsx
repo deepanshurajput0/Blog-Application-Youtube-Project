@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createBlogStart, createBlogSuccess, createBlogFail } from "../redux/blogSlice/blogSlice";
+import { getCategoryStart, getCategorySuccess, getCategoryFail } from "../redux/categorySlice/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 const CreateBlogs = () => {
@@ -11,14 +12,7 @@ const CreateBlogs = () => {
    const dispatch = useDispatch()
    const {  loading } = useSelector((state)=>state.blog)
    const { user } = useSelector((state)=>state.user)
-   const categories = [
-    'Web development',
-    ' Artifical Intellegence',
-    'Data Structure & Algorithms',
-    'App Development',
-    'Data Science',
-    'Game Development'
-  ]
+   const  { categories } = useSelector((state)=>state.category)  
    const  changeImageHandler =(e)=>{
       const file = e.target.files[0]
       const reader = new FileReader()
@@ -57,6 +51,31 @@ const CreateBlogs = () => {
     }
   };
 
+  const getAllCategories =async()=>{
+    try {
+     dispatch(getCategoryStart());
+     const res = await fetch("/api/v1/get/categories", {
+       method: "GET",
+       credentials:'include'
+     });
+     const data = await res.json();
+     if (!res.ok) {
+       dispatch(getCategoryFail(data.message));
+       toast.error(data.message);
+     } else {
+       dispatch(getCategorySuccess(data));
+       
+       setCategory('')
+     }
+   } catch (error) {
+     dispatch(getCategoryFail(error.message));
+     toast.error(error.message);
+   }
+}
+
+useEffect(()=>{
+  getAllCategories()
+},[])
   return (
     <div>
       <div>
@@ -117,8 +136,8 @@ const CreateBlogs = () => {
                     Select Your Category
                   </option>
                   {
-                    categories.map(item=>(
-                      <option key={item} value={item} >{item} </option>
+                    categories?.map(item=>(
+                      <option key={item._id} value={item.category} >{item.category} </option>
                     ))
                    }
                 </select>
