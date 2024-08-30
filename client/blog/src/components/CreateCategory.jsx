@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { createCategoryFail, createCategorySuccess, createCategoryStart } from "../redux/categorySlice/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
+import { RiDeleteBin5Line } from "react-icons/ri";
 import toast from "react-hot-toast";
 
 const CreateCategory = () => {
@@ -25,6 +26,7 @@ const CreateCategory = () => {
       } else {
         dispatch(createCategorySuccess(data));
         toast.success(data.message);
+        setCategory('')
       }
     } catch (error) {
       dispatch(createCategoryFail(error.message));
@@ -33,8 +35,8 @@ const CreateCategory = () => {
   };
 
   return (
-    <div className=" w-[400px] mt-20 " >
-          <form onSubmit={submitHandler} className="card-body">
+    <div className=" mt-20 flex flex-col " >
+          <form onSubmit={submitHandler} className=" w-[400px]">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Title</span>
@@ -59,6 +61,34 @@ const CreateCategory = () => {
                 </button>
               </div>
               </form>
+
+       <div className=" mt-10" >
+        <h1 className=" text-3xl font-semibold  text-center font-poppins" > All Categories  </h1>
+        <div className="overflow-x-auto mt-10">
+  <table className="table">
+    {/* head */}
+    <thead>
+      <tr>
+        <th></th>
+        <th>Categories</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      {/* row 1 */}
+      <tr>
+        <th>1</th>
+        <td>Cy Ganderton</td>
+        <td className=" ml-10" >
+          <RiDeleteBin5Line size={20} />
+        </td>
+      </tr>
+      {/* row 2 */}
+    </tbody>
+  </table>
+</div>
+
+       </div>
     </div>
   )
 }
