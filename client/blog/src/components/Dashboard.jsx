@@ -18,7 +18,7 @@ const DashboardLayout = () => {
 
       {/* Sidebar */}
       {toggle && (
-        <div className=" h-screen absolute top-14 bg-[#0C090A] text-white w-64 px-4 py-8">
+        <div className=" h-screen z-50 absolute top-14 bg-[#0C090A] text-white w-64 px-4 py-8">
           <h2 className="text-2xl cursor-pointer font-semibold mb-6">
             <Link to={'/dashboard'} >Dashboard</Link>
           </h2>

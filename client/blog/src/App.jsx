@@ -13,6 +13,7 @@ import AllBlogs from './components/AllBlogs'
 import CreateBlogs from './components/CreateBlogs'
 import CreateCategory from './components/CreateCategory'
 import Analytics from './components/Analytics'
+import EditBlog from './pages/EditBlog'
 const App = () => {
   const loadUser = useLoadUser()
 
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="create-blog" element={<CreateBlogs/>} />
           <Route path="create-category" element={<CreateCategory/>} />
           <Route path="analytics" element={<Analytics/>} />
+          <Route path="edit/:id" element={<EditBlog/>} />
       </Route>
     </Routes>
     <Toaster/>

@@ -52,6 +52,20 @@ export const getAllBlogs=async(req,res)=>{
 }
 
 
+export const getSingleBlog=async(req,res)=>{
+  try {
+    const { id } = req.params
+    const blog = await blogModel.findById(id)
+    res.status(200).json(blog)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+        message:"Internal Server error"
+    })
+  }
+}
+
+
 
 export const updateBlog = async (req, res) => {
   try {

@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineEdit } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const AllBlogs = () => {
 
   const dispatch = useDispatch()
   const { blog } = useSelector((state)=>state.blog)
-  console.log(blog)
 const getAllBlogs =async()=>{
   try {
    dispatch(getBlogsStart());
@@ -39,7 +39,7 @@ useEffect(()=>{
     <div className=" mt-16 flex flex-col gap-y-14 items-center md:flex md:flex-row md:justify-evenly md:flex-wrap" >
           {
             blog.map((item)=>(
-              <div key={item._id} className="card -z-50 card-compact bg-[#0C090A] w-80 shadow-xl font-poppins">
+              <div key={item._id} className="card  card-compact bg-[#0C090A] w-80 shadow-xl font-poppins">
               <figure>
                 <img className=""
                   src={item?.image?.url}
@@ -50,7 +50,9 @@ useEffect(()=>{
                 <p>{item?.content.substring(0,300)}....</p>
                 <div className="card-actions justify-end">
                   <button className="btn  btn-primary rounded-lg">
-                    <MdOutlineEdit className="cursor-pointer" size={20} />
+                   <Link to={`/dashboard/edit/${item._id}`} >
+                   <MdOutlineEdit className="cursor-pointer" size={20} />
+                   </Link>
                   </button>
                   <button className="btn cursor-pointer btn-primary rounded-lg">
                     <RiDeleteBinLine className="cursor-pointer"  />
@@ -65,3 +67,5 @@ useEffect(()=>{
 }
 
 export default AllBlogs
+
+
