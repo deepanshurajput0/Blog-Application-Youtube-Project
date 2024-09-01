@@ -9,7 +9,7 @@ const initialState = {
 
 
 const blogSlice = createSlice({
-    name:"user",
+    name:"blog",
     initialState,
     reducers:{
         createBlogStart:(state)=>{
@@ -35,10 +35,22 @@ const blogSlice = createSlice({
           state.loading = false
           state.error = action.payload.message
         },
+        updateBlogsStart:(state)=>{
+            state.loading = true
+        },
+        updateBlogsSuccess:(state,action)=>{
+            state.loading = false
+            state.message = action.payload.message
+        },
+        updateBlogsFail:(state,action)=>{
+          state.loading = false
+          state.error = action.payload.message
+        },
+        
     }
 })
 
-export const { createBlogFail, createBlogSuccess, createBlogStart, getBlogsFail, getBlogsSuccess, getBlogsStart } = blogSlice.actions
+export const { createBlogFail, createBlogSuccess, createBlogStart, getBlogsFail, getBlogsSuccess, getBlogsStart, updateBlogsFail, updateBlogsStart, updateBlogsSuccess } = blogSlice.actions
 
 export default blogSlice.reducer
 

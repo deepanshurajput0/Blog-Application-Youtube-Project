@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createBlogStart, createBlogSuccess, createBlogFail } from "../redux/blogSlice/blogSlice";
+import { updateBlogsStart, updateBlogsFail, updateBlogsSuccess } from "../redux/blogSlice/blogSlice";
 import { getCategoryStart, getCategorySuccess, getCategoryFail } from "../redux/categorySlice/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -37,6 +37,11 @@ const EditBlog = () => {
        toast.error(data.message);
      } else {
         console.log(data)
+        setTitle(data.title)
+        setImage(data?.image?.url)
+        setImagePrev(data?.image?.url)
+        setContent(data?.content)
+        setCategory(data?.category)
      }
    } catch (error) {
      dispatch(getCategoryFail(error.message));
@@ -53,21 +58,21 @@ const EditBlog = () => {
     myForm.append('category', category)
     myForm.append('author', user._id)
     try {
-      dispatch(createBlogStart());
-      const res = await fetch("/api/v1/create", {
-        method: "POST",
+      dispatch(updateBlogsStart());
+      const res = await fetch(`/api/v1/update/${id}`, {
+        method: "PUT",
         body: myForm,
       });
       const data = await res.json();
       if (!res.ok) {
-        dispatch(createBlogFail(data.message));
+        dispatch(updateBlogsFail(data.message));
         toast.error(data.message);
       } else {
-        dispatch(createBlogSuccess(data));
+        dispatch(updateBlogsSuccess(data));
         toast.success(data.message);
       }
     } catch (error) {
-      dispatch(createBlogFail(error.message));
+      dispatch(updateBlogsFail(error.message));
       toast.error(error.message);
     }
   };
@@ -143,7 +148,7 @@ useEffect(()=>{
                   <span className="label-text">Content</span>
                 </label>
                 <textarea
-                  className="textarea textarea-bordered"
+                  className="textarea textarea-bordered md:h-52"
                   placeholder="Content"
                     value={content}
                     onChange={(e)=>setContent(e.target.value)}
@@ -169,7 +174,7 @@ useEffect(()=>{
                 <button className="btn btn-primary">
                   {
                     loading ? <span className="loading loading-spinner loading-xs"></span> : <>
-                    Create Blog
+                    Update Blog
                     </>
                   }
                 </button>
