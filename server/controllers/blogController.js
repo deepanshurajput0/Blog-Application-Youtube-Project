@@ -170,3 +170,16 @@ export const getBlogStats = async (req, res) => {
     });
   }
 };
+
+
+export const getAllBlogsByAdmin =async(req,res)=>{
+  try {
+    const allbogs = await blogModel.find({})
+    res.status(200).json(allbogs)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+}

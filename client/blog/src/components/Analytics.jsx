@@ -1,8 +1,32 @@
 import { BiTrendingUp } from "react-icons/bi";
-import { FaArrowUpLong } from "react-icons/fa6";
+import { FaArrowUpLong, FaArrowDownLong } from "react-icons/fa6";
 import LineChartContainer from "./LineChartContainer.jsx";
+import { useEffect, useState } from "react";
 
+import toast from "react-hot-toast";
 const Analytics = () => {
+  const [totalBlogs, setTotalBlogs] = useState([])
+const getAllBlogs =async()=>{
+ 
+  try {
+   const res = await fetch("/api/v1/adminblogs", {
+     method: "GET",
+     credentials:'include'
+   });
+   const data = await res.json();
+   if (!res.ok) {
+     toast.error(data.message);
+   } else {
+      setTotalBlogs(data)
+     
+   }
+ } catch (error) {
+   toast.error(error.message);
+ }
+}
+useEffect(()=>{
+  getAllBlogs()
+},[])
   return (
     <div className=" ml-32 font-poppins" >
       <h1 className=" text-4xl font-semibold" >Analytics</h1>
@@ -25,9 +49,11 @@ const Analytics = () => {
      <p className="">Blogs</p>
      <div className=" flex space-x-3" >
    
-    <h2 className="card-title">50</h2>
+    <h2 className="card-title">{totalBlogs.length}</h2>
     <div>
-    <FaArrowUpLong size={'20'} color="green" />
+    {
+      totalBlogs.length < 5 ? <FaArrowDownLong size={'20'} color="red" /> : <FaArrowUpLong size={'20'} color="green" />
+    }
     </div>
      </div>
      <p>All Blogs</p>

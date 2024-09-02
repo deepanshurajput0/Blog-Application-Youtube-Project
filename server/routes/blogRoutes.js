@@ -7,6 +7,7 @@ const router = express()
 router.post('/create',authMiddleware,isAdmin,singleUpload,createBlog)
 router.get('/stats', authMiddleware,isAdmin,getBlogStats);
 router.get('/allblogs', getAllBlogs)
+router.get('/adminblogs', authMiddleware,isAdmin,getAllBlogs)
 router.get('/single/blog/:id', getSingleBlog)
 router.put('/update/:id', authMiddleware,isAdmin,singleUpload ,updateBlog)
 router.delete('/delete/:id', authMiddleware,isAdmin,deleteBlog)
