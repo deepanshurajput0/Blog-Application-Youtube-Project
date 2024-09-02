@@ -132,3 +132,41 @@ export const deleteBlog = async (req, res) => {
 };
 
 
+
+// Controller to get blog statistics (blogs posted per month)
+export const getBlogStats = async (req, res) => {
+  try {
+    const stats = await blogModel.aggregate([
+      {
+        // Group blogs by year and month of the publishedAt date
+        $group: {
+          _id: {
+            year: { $year: "$publishedAt" },
+            month: { $month: "$publishedAt" },
+          },
+          totalBlogs: { $sum: 1 }, // Count the number of blogs per group
+        },
+      },
+      {
+        // Sort results by year and month
+        $sort: { "_id.year": -1, "_id.month": -1 },
+      },
+      {
+        // Format the response with month and year labels
+        $project: {
+          _id: 0,
+          year: "$_id.year",
+          month: "$_id.month",
+          totalBlogs: 1,
+        },
+      },
+    ]);
+
+    res.status(200).json(stats);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+};

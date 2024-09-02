@@ -48,7 +48,7 @@ const Analytics = () => {
 </div>
 
       </div>
-      <div className=" md:mt-80  mt-[40rem]  md:h-[400px]   h-[200px]" >
+      <div className=" md:mt-80 md:static absolute left-5  mt-[40rem]  md:h-[400px]   h-[200px]" >
   <LineChartContainer/>
 </div>
     </div>
