@@ -35,7 +35,7 @@ const BlogDetails = () => {
         <div className="bg-neutral text-neutral-content w-10 h-10 rounded-full p-2 pl-4">
     <span className="text-[15px]">D</span>
   </div> 
-    <h2 className=" font-semibold" >Created By - Deepanshu</h2>
+    <h2 className=" font-semibold" >Created By - {blogData?.author?.username}</h2>
         </div>
         <p>
             {blogData?.content}

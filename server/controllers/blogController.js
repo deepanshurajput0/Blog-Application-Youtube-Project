@@ -55,7 +55,7 @@ export const getAllBlogs=async(req,res)=>{
 export const getSingleBlog=async(req,res)=>{
   try {
     const { id } = req.params
-    const blog = await blogModel.findById(id)
+    const blog = await blogModel.findById(id).populate('author','username')
     res.status(200).json(blog)
   } catch (error) {
     console.log(error)
