@@ -31,6 +31,23 @@ const getAllBlogs =async()=>{
  }
 }
 
+const handleDelete =async(id)=>{
+  try {
+    const res = await fetch(`/api/v1/delete/${id}`, {
+        method: "DELETE",
+    });
+    const data = await res.json();
+    if (res.ok) {
+        dispatch(getBlogsSuccess(blog.filter(blogs => blogs._id !== id)));
+        toast.success(data.message);
+    } else {
+        toast.error(data.message);
+    }
+} catch (error) {
+    toast.error(error.message);
+}
+}
+
 useEffect(()=>{
   getAllBlogs()
 },[])
@@ -54,7 +71,7 @@ useEffect(()=>{
                    <MdOutlineEdit className="cursor-pointer" size={20} />
                    </Link>
                   </button>
-                  <button className="btn cursor-pointer btn-primary rounded-lg">
+                  <button onClick={()=>handleDelete(item._id)} className="btn cursor-pointer btn-primary rounded-lg">
                     <RiDeleteBinLine className="cursor-pointer"  />
                   </button>
                 </div>
