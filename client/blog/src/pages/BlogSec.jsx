@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getBlogsFail, getBlogsSuccess, getBlogsStart } from "../redux/blogSlice/blogSlice"
 import toast from "react-hot-toast"
 import { useEffect } from "react"
+import { Link } from "react-router-dom"
 const BlogSec = () => {
   const dispatch = useDispatch()
   const { blog } = useSelector((state)=>state.blog)
@@ -35,7 +36,7 @@ useEffect(()=>{
         <div className="blogs mt-10 flex flex-col items-center gap-y-10 md:flex md:flex-row md:justify-evenly flex-wrap">
          {
           blog.map((item)=>(
-            <div key={item._id} className="card  card-compact bg-[#0C090A] w-80 shadow-xl font-poppins">
+            <div key={item._id} className="card  card-compact bg-[#0C090A] w-80 shadow-xl font-poppins rounded-lg">
             <figure>
               <img className=""
                 src={item?.image?.url}
@@ -45,9 +46,11 @@ useEffect(()=>{
               <h2 className="card-title">{item?.title}</h2>
               <p>{item?.content.substring(0,300)}....</p>
               <div className="card-actions justify-end">
-                <button className="btn  btn-primary rounded-lg">
+               <Link to={`/blogdetail/${item._id}`} >
+               <button className="btn  btn-primary rounded-lg">
                   Read More
                 </button>
+               </Link>
               </div>
             </div>
             </div>

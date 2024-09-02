@@ -28,6 +28,7 @@ const App = () => {
     <Navbar/>
     <Routes>
       <Route path='/' element={<Home/>} />
+      <Route path='/blogdetail/:id' element={<BlogDetails/>} />
       <Route path='/signup' element={
         <ProtectedRoute>
           <Signup/>
