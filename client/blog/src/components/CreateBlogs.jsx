@@ -82,7 +82,7 @@ useEffect(()=>{
         <h1 className=" text-center text-4xl font-poppins font-bold mt-20" >Create Your Blogs </h1>
       </div>
 
-      <div className="hero z-[-10]">
+      <div className=" z-[-10]">
         <div>
           <div className="">
             <form onSubmit={submitHandler} className="card-body">
@@ -120,7 +120,7 @@ useEffect(()=>{
                   <span className="label-text">Content</span>
                 </label>
                 <textarea
-                  className="textarea textarea-bordered"
+                  className="textarea textarea-bordered h-40"
                   placeholder="Content"
                     value={content}
                     onChange={(e)=>setContent(e.target.value)}
