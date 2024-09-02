@@ -72,6 +72,15 @@ export const getMyProfile=async(req,res)=>{
     }
 }
 
+export const getAllUsers=async(req,res)=>{
+    try {
+     const getAllUsers = await userModel.find()
+     res.status(200).json(getAllUsers)       
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const logout=async(req,res)=>{
     try {
       res.cookie('token',null,{

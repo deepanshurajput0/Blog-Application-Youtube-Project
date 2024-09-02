@@ -1,4 +1,4 @@
-import { BiTrendingUp } from "react-icons/bi";
+import { BiTrendingDown, BiTrendingUp } from "react-icons/bi";
 import { FaArrowUpLong, FaArrowDownLong } from "react-icons/fa6";
 import LineChartContainer from "./LineChartContainer.jsx";
 import { useEffect, useState } from "react";
@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 const Analytics = () => {
   const [totalBlogs, setTotalBlogs] = useState([])
+  const [allUsers, setAllUsers] = useState([])
 const getAllBlogs =async()=>{
  
   try {
@@ -24,8 +25,27 @@ const getAllBlogs =async()=>{
    toast.error(error.message);
  }
 }
+const getAllUsers =async()=>{
+ 
+  try {
+   const res = await fetch("/api/v1/allusers", {
+     method: "GET",
+     credentials:'include'
+   });
+   const data = await res.json();
+   if (!res.ok) {
+     toast.error(data.message);
+   } else {
+      setAllUsers(data)
+     
+   }
+ } catch (error) {
+   toast.error(error.message);
+ }
+}
 useEffect(()=>{
   getAllBlogs()
+  getAllUsers()
 },[])
   return (
     <div className=" ml-32 font-poppins" >
@@ -36,9 +56,15 @@ useEffect(()=>{
      <p className="">Users</p>
      <div className=" flex space-x-3" >
    
-    <h2 className="card-title">100</h2>
+    <h2 className="card-title">
+      {
+        allUsers.length
+      }
+    </h2>
     <div>
-    <BiTrendingUp size={'20'} color="green" />
+    {
+      allUsers.length < 5 ? <BiTrendingDown size={'20'} color="red" /> : <BiTrendingUp size={'20'} color="green" />
+    }
     </div>
      </div>
      <p>Total Users</p>
