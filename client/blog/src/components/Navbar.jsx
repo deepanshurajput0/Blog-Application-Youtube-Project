@@ -82,7 +82,7 @@ const Navbar = () => {
 <div className=" hidden md:flex">
         <ul className=" flex space-x-16 items-center" >
             <li>
-                <Link>Blogs</Link>
+                <Link to={'/blogs'} >Blogs</Link>
             </li>
             <li>
                 <Link>About</Link>

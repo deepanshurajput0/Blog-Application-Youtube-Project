@@ -16,6 +16,7 @@ import Analytics from './components/Analytics'
 import EditBlog from './pages/EditBlog'
 import ErrorPage from './pages/ErrorPage'
 import AdminRoute from './components/AdminRoute.jsx'
+import Blogs from './pages/Blogs.jsx'
 const App = () => {
   const loadUser = useLoadUser()
 
@@ -43,6 +44,7 @@ const App = () => {
       } />
       <Route path='*' element={<ErrorPage/>} />
       <Route path='/blog/:id' element={<BlogDetails/>} />
+      <Route path='/blogs' element={<Blogs/>} />
       <Route path="/dashboard"  element={<AdminRoute>
         <DashboardLayout />
       </AdminRoute>} >
