@@ -71,12 +71,13 @@ useEffect(()=>{
         <div>
             <div className=" flex items-center justify-center space-x-10 mt-10" >
                 <p>All Categories</p>
-                {
-             <div>
-                       category.map((item)=>(
+              <div>
+              {
+                    category.map((item)=>(
                         <button key={item._id} className="btn">{item?.category}</button>
                     ))
                 }
+              </div>
             </div>
         </div>
         <div className="blogs mt-10 flex flex-col items-center gap-y-10 md:flex md:flex-row md:justify-evenly flex-wrap">
