@@ -14,12 +14,14 @@ import CreateBlogs from './components/CreateBlogs'
 import CreateCategory from './components/CreateCategory'
 import Analytics from './components/Analytics'
 import EditBlog from './pages/EditBlog'
+import ErrorPage from './pages/ErrorPage'
+import AdminRoute from './components/AdminRoute.jsx'
 const App = () => {
   const loadUser = useLoadUser()
 
   useEffect(()=>{
      loadUser()
-  },[loadUser])
+  },[])
 
  
   return (
@@ -39,8 +41,11 @@ const App = () => {
           <Login/>
         </ProtectedRoute>
       } />
+      <Route path='*' element={<ErrorPage/>} />
       <Route path='/blog/:id' element={<BlogDetails/>} />
-      <Route path="/dashboard"  element={<DashboardLayout />} >
+      <Route path="/dashboard"  element={<AdminRoute>
+        <DashboardLayout />
+      </AdminRoute>} >
       <Route path="blogs" element={<AllBlogs/>} />
           <Route path="create-blog" element={<CreateBlogs/>} />
           <Route path="create-category" element={<CreateCategory/>} />

@@ -1,6 +1,7 @@
 import homeImg from './../images/coding.jpg'
 import Typewriter from 'typewriter-effect'
 import BlogSec from './BlogSec'
+import About from './About'
 const Home = () => {
   return (
     <div>
@@ -28,7 +29,7 @@ const Home = () => {
        </div>
     </div>
     <BlogSec/>
-    
+    <About/>
     </div>
   )
 }

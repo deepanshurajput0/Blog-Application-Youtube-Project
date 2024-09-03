@@ -5,7 +5,7 @@ const AdminRoute = ({ element }) => {
   const { user } = useSelector((state) => state.user);
 
   if (user?.role !== 'admin') {
-    return <Navigate to="/" />;
+    return <Navigate to="*" />;
   }
 
   return element;
