@@ -8,12 +8,12 @@ import { IoMdSearch } from "react-icons/io";
 const Blogs = () => {
   const dispatch = useDispatch()
   const [search, setSearch] = useState('')
-  const [category, setCategory] = useState([])
+  const [categories, setCategories] = useState([])
   const { blog } = useSelector((state)=>state.blog)
-const getAllBlogs =async()=>{
+const getAllBlogs =async(category)=>{
   try {
    dispatch(getBlogsStart());
-   const res = await fetch(`/api/v1/allblogs?search=${search}`, {
+   const res = await fetch(`/api/v1/allblogs?search=${search}?category=${category}`, {
      method: "GET",
      credentials:'include'
    });
@@ -45,7 +45,7 @@ const getAllCategories =async()=>{
      } else {
        dispatch(getCategorySuccess(data));
        
-       setCategory(data)
+       setCategories(data)
      }
    } catch (error) {
      dispatch(getCategoryFail(error.message));
@@ -69,15 +69,13 @@ useEffect(()=>{
         <IoMdSearch size={25}  />
         </div>
         <div>
-            <div className=" flex items-center justify-center space-x-10 mt-10" >
+            <div className=" flex items-center justify-center space-x-10 mt-10 overflow-scroll" >
                 <p>All Categories</p>
-              <div>
               {
-                    category.map((item)=>(
-                        <button key={item._id} className="btn">{item?.category}</button>
+                    categories?.map((item)=>(
+                        <button onClick={()=>getAllBlogs(item?.category)} key={item._id} className="btn">{item?.category}</button>
                     ))
                 }
-              </div>
             </div>
         </div>
         <div className="blogs mt-10 flex flex-col items-center gap-y-10 md:flex md:flex-row md:justify-evenly flex-wrap">
