@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux"
 import { getBlogsFail, getBlogsSuccess, getBlogsStart } from "../redux/blogSlice/blogSlice"
 import toast from "react-hot-toast"
+import { getCategoryFail, getCategorySuccess, getCategoryStart } from "../redux/categorySlice/categorySlice"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { IoMdSearch } from "react-icons/io";
 const Blogs = () => {
   const dispatch = useDispatch()
   const [search, setSearch] = useState('')
+  const [category, setCategory] = useState([])
   const { blog } = useSelector((state)=>state.blog)
 const getAllBlogs =async()=>{
   try {
@@ -29,8 +31,31 @@ const getAllBlogs =async()=>{
  }
 }
 
+const getAllCategories =async()=>{
+    try {
+     dispatch(getCategoryStart());
+     const res = await fetch("/api/v1/get/categories", {
+       method: "GET",
+       credentials:'include'
+     });
+     const data = await res.json();
+     if (!res.ok) {
+       dispatch(getCategoryFail(data.message));
+       toast.error(data.message);
+     } else {
+       dispatch(getCategorySuccess(data));
+       
+       setCategory(data)
+     }
+   } catch (error) {
+     dispatch(getCategoryFail(error.message));
+     toast.error(error.message);
+   }
+}
+
 useEffect(()=>{
   getAllBlogs()
+  getAllCategories()
 },[search])
   return (
     <div className=" mt-16" >
@@ -42,6 +67,17 @@ useEffect(()=>{
         value={search}
         className="input input-bordered w-full max-w-xs" />
         <IoMdSearch size={25}  />
+        </div>
+        <div>
+            <div className=" flex items-center justify-center space-x-10 mt-10" >
+                <p>All Categories</p>
+                {
+             <div>
+                       category.map((item)=>(
+                        <button key={item._id} className="btn">{item?.category}</button>
+                    ))
+                }
+            </div>
         </div>
         <div className="blogs mt-10 flex flex-col items-center gap-y-10 md:flex md:flex-row md:justify-evenly flex-wrap">
          {
