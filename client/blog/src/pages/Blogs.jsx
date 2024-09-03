@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from "react-redux"
 import { getBlogsFail, getBlogsSuccess, getBlogsStart } from "../redux/blogSlice/blogSlice"
 import toast from "react-hot-toast"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { IoMdSearch } from "react-icons/io";
 const Blogs = () => {
   const dispatch = useDispatch()
+  const [search, setSearch] = useState('')
   const { blog } = useSelector((state)=>state.blog)
 const getAllBlogs =async()=>{
   try {
    dispatch(getBlogsStart());
-   const res = await fetch("/api/v1/allblogs", {
+   const res = await fetch(`/api/v1/allblogs?search=${search}`, {
      method: "GET",
      credentials:'include'
    });
@@ -30,11 +31,16 @@ const getAllBlogs =async()=>{
 
 useEffect(()=>{
   getAllBlogs()
-},[])
+},[search])
   return (
     <div className=" mt-16" >
         <div className=" flex items-center space-x-5 justify-center pt-20" >
-        <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+        <input 
+        type="text" 
+        placeholder="Type here"
+        onChange={(e)=>setSearch(e.target.value)} 
+        value={search}
+        className="input input-bordered w-full max-w-xs" />
         <IoMdSearch size={25}  />
         </div>
         <div className="blogs mt-10 flex flex-col items-center gap-y-10 md:flex md:flex-row md:justify-evenly flex-wrap">
