@@ -3,6 +3,7 @@ import { getBlogsFail, getBlogsSuccess, getBlogsStart } from "../redux/blogSlice
 import toast from "react-hot-toast"
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
+import { IoMdSearch } from "react-icons/io";
 const Blogs = () => {
   const dispatch = useDispatch()
   const { blog } = useSelector((state)=>state.blog)
@@ -32,6 +33,10 @@ useEffect(()=>{
 },[])
   return (
     <div className=" mt-16" >
+        <div className=" flex items-center space-x-5 justify-center pt-20" >
+        <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+        <IoMdSearch size={25}  />
+        </div>
         <div className="blogs mt-10 flex flex-col items-center gap-y-10 md:flex md:flex-row md:justify-evenly flex-wrap">
          {
           blog.map((item)=>(
