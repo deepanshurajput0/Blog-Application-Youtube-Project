@@ -45,15 +45,14 @@ const App = () => {
       <Route path='*' element={<ErrorPage/>} />
       <Route path='/blog/:id' element={<BlogDetails/>} />
       <Route path='/blogs' element={<Blogs/>} />
-      <Route path="/dashboard"  element={<AdminRoute>
-        <DashboardLayout />
-      </AdminRoute>} >
-      <Route path="blogs" element={<AllBlogs/>} />
-          <Route path="create-blog" element={<CreateBlogs/>} />
-          <Route path="create-category" element={<CreateCategory/>} />
-          <Route path="analytics" element={<Analytics/>} />
-          <Route path="edit/:id" element={<EditBlog/>} />
-      </Route>
+      <Route path="/dashboard" element={<AdminRoute element={<DashboardLayout />} />} >
+  <Route path="blogs" element={<AllBlogs />} />
+  <Route path="create-blog" element={<CreateBlogs />} />
+  <Route path="create-category" element={<CreateCategory />} />
+  <Route path="analytics" element={<Analytics />} />
+  <Route path="edit/:id" element={<EditBlog />} />
+</Route>
+
     </Routes>
     <Toaster/>
   </Router>

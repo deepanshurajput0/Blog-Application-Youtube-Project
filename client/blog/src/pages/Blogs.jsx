@@ -13,7 +13,7 @@ const Blogs = () => {
 const getAllBlogs =async(category)=>{
   try {
    dispatch(getBlogsStart());
-   const res = await fetch(`/api/v1/allblogs?search=${search}?category=${category}`, {
+   const res = await fetch(`/api/v1/allblogs?search=${search}&category=${category}`, {
      method: "GET",
      credentials:'include'
    });
