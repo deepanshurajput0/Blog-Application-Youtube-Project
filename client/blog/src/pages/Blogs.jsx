@@ -10,10 +10,10 @@ const Blogs = () => {
   const [search, setSearch] = useState('')
   const [categories, setCategories] = useState([])
   const { blog } = useSelector((state)=>state.blog)
-const getAllBlogs =async(category)=>{
+const getAllBlogs =async(cat='')=>{
   try {
    dispatch(getBlogsStart());
-   const res = await fetch(`/api/v1/allblogs?search=${search}&category=${category}`, {
+   const res = await fetch(`/api/v1/allblogs?search=${search}&category=${cat}`, {
      method: "GET",
      credentials:'include'
    });
@@ -80,7 +80,7 @@ useEffect(()=>{
         </div>
         <div className="blogs mt-10 flex flex-col items-center gap-y-10 md:flex md:flex-row md:justify-evenly flex-wrap">
          {
-          blog.map((item)=>(
+          blog?.map((item)=>(
             <div key={item._id} className="card  card-compact bg-[#0C090A] w-80 shadow-xl font-poppins rounded-lg">
             <figure>
               <img className=""
